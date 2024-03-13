@@ -1,4 +1,7 @@
+#include <memory>
 #include "ros/ros.h"
+
+#include "rpi_library/RPIComms.h"
 
 bool getROSParam(const ros::NodeHandle& nh, const std::string& node_name, const std::string& param_name, std::string& param_value) {
 
@@ -26,6 +29,8 @@ int main(int argc, char *argv[])
     ROS_INFO("Config Param: %s", config_param.c_str());
     ROS_INFO("Data Param: %s", data_param.c_str());
 
-    //run_HTG3(config_param,data_param);
+    // test to see if library link ok
+    std::unique_ptr<RPIComms> rpi_comm = std::make_unique<RPIComms>();
+
     return 0;
 }

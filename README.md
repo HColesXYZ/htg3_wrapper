@@ -1,8 +1,12 @@
-create catkin_ws/src
+First clone HT_G3_Test_rig
 
-cd src
+Then
 
-git clone
+mkdir catkin_ws/src
+
+cd catkin_ws/src
+
+git clone *This Repo*
 
 cd ..
 

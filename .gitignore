@@ -1,1 +1,4 @@
 .vscode
+
+config/*
+!config/README.md

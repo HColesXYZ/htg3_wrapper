@@ -1,4 +1,6 @@
 .vscode
 
+output/*
+!output/README.md
 config/*
 !config/README.md

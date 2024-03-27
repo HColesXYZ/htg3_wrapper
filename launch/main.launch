@@ -1,10 +1,10 @@
 <launch>
     <!-- Define the argument for the file path -->
-    <arg name="config_path" default="$(find htg3_wrapper)/config/mid360_test.json" />
+    <arg name="config_path" default="$(find htg3_wrapper)/config/rpisim_config.json" />
     <arg name="data_path" default="$(find htg3_wrapper)/output" />
 
     <!-- Set the parameter for the node using the argument value -->
-    <node name="htg3_wrapper_node" pkg="htg3_wrapper" type="htg3_wrapper_node" output="screen">
+    <node name="htg3_wrapper_node" pkg="htg3_wrapper" type="htg3_wrapper" output="screen">
         <param name="config_param" value="$(arg config_path)" />
         <param name="data_param" value="$(arg data_path)" />
     </node>

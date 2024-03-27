@@ -1,7 +1,7 @@
 #include <memory>
 #include "ros/ros.h"
 
-#include "rpi_library/RPIComms.h"
+#include "data_collector.h"
 
 bool getROSParam(const ros::NodeHandle& nh, const std::string& node_name, const std::string& param_name, std::string& param_value) {
 
@@ -26,11 +26,12 @@ int main(int argc, char *argv[])
 
     if (!getROSParam(nh, node_name, "data_param", data_param)) return 1;
     if (!getROSParam(nh, node_name, "config_param", config_param)) return 1;
+    ROS_INFO("Wrapper Version 1.0");
     ROS_INFO("Config Param: %s", config_param.c_str());
     ROS_INFO("Data Param: %s", data_param.c_str());
 
     // test to see if library link ok
-    std::unique_ptr<RPIComms> rpi_comm = std::make_unique<RPIComms>();
-
-    return 0;
+    DCconfig config(config_param.c_str());
+    std::string outputFolder(data_param.c_str());
+    return start_collecting(argc, argv, config, outputFolder);
 }

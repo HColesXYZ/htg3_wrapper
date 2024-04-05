@@ -1,6 +1,6 @@
 <launch>
     <!-- Define the argument for the file path -->
-    <arg name="config_path" default="$(find htg3_wrapper)/config/rpisim_config.json" />
+    <arg name="config_path" default="$(find htg3_wrapper)/config/test_config.json" />
     <arg name="data_path" default="$(find htg3_wrapper)/output" />
 
     <!-- Set the parameter for the node using the argument value -->

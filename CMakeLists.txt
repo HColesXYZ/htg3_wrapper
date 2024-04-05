@@ -128,6 +128,7 @@ set (HGT3_SOURCES
     ${HTG3_COLLECTOR_DIR}/Lidar/livox_lidar.cpp
     ${HTG3_COLLECTOR_DIR}/optotrack/OptitrackInterface.cpp
     ${HTG3_COLLECTOR_DIR}/rpi_library/RPIComms.cpp
+    ${HTG3_COLLECTOR_DIR}/rpi_library/RPIInterface.cpp
     ${HTG3_COLLECTOR_DIR}/tof/helios2.cpp
     ${HTG3_COLLECTOR_DIR}/tof/heliosDevice.cpp
     ${HTG3_COLLECTOR_DIR}/svr/svr_grabber.cpp

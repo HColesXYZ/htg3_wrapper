@@ -48,9 +48,7 @@ endif()
 SET(LIB_DIR_ARENA $ENV{HOME}/Documents/ArenaSDK_Linux_x64/lib64)
 SET(LIB_DIR_GENICAM $ENV{HOME}/Documents/ArenaSDK_Linux_x64/GenICam/library/lib/Linux64_x64)
 SET(LIB_DIR_FFMPEG $ENV{HOME}/Documents/ArenaSDK_Linux_x64/ffmpeg)
-SET(LIB_DIR_OPENVR ${HTG3_COLLECTOR_DIR}/svr/openvr/lib/linux64)
 
-find_library(openvr_LIB NAMES openvr_api PATHS ${LIB_DIR_OPENVR})
 find_library(arena_LIB NAMES arena PATHS ${LIB_DIR_ARENA})
 find_library(save_LIB NAMES save PATHS ${LIB_DIR_ARENA})
 find_library(gentl_LIB NAMES gentl PATHS ${LIB_DIR_ARENA})
@@ -101,11 +99,11 @@ catkin_package(
 )
 
 set (HGT3_INCLUDE_DIRS
+    ${HTG3_COLLECTOR_DIR}/../../../common/include
     ${HTG3_COLLECTOR_DIR}/camera
     ${HTG3_COLLECTOR_DIR}/data_collector
     ${HTG3_COLLECTOR_DIR}/totalStation
     ${HTG3_COLLECTOR_DIR}/log
-    ${HTG3_COLLECTOR_DIR}/Lidar
     ${HTG3_COLLECTOR_DIR}/optotrack
     ${HTG3_COLLECTOR_DIR}/optotrack/includes
     ${HTG3_COLLECTOR_DIR}/rpi_library
@@ -115,23 +113,19 @@ set (HGT3_INCLUDE_DIRS
     $ENV{HOME}/Documents/ArenaSDK_Linux_x64/include/Save
     $ENV{HOME}/Documents/ArenaSDK_Linux_x64/include/GenTL
     $ENV{HOME}/Documents/ArenaSDK_Linux_x64/GenICam/library/CPP/include
-    ${HTG3_COLLECTOR_DIR}/svr/openvr/headers
-    ${HTG3_COLLECTOR_DIR}/svr
     ${HTG3_COLLECTOR_DIR}/stm32_library
 )
 
 set (HGT3_SOURCES
+    ${HTG3_COLLECTOR_DIR}/../../../common/src/RPIComms.cpp
     ${HTG3_COLLECTOR_DIR}/data_collector/data_collector.cpp
     ${HTG3_COLLECTOR_DIR}/camera/ids_camera_collector.cpp
     ${HTG3_COLLECTOR_DIR}/camera/autofeaturesmanager.cpp
     ${HTG3_COLLECTOR_DIR}/log/log.cpp
-    ${HTG3_COLLECTOR_DIR}/Lidar/livox_lidar.cpp
     ${HTG3_COLLECTOR_DIR}/optotrack/OptitrackInterface.cpp
-    ${HTG3_COLLECTOR_DIR}/rpi_library/RPIComms.cpp
     ${HTG3_COLLECTOR_DIR}/rpi_library/RPIInterface.cpp
     ${HTG3_COLLECTOR_DIR}/tof/helios2.cpp
     ${HTG3_COLLECTOR_DIR}/tof/heliosDevice.cpp
-    ${HTG3_COLLECTOR_DIR}/svr/svr_grabber.cpp
     ${HTG3_COLLECTOR_DIR}/totalStation/tsCollect.cpp
     ${HTG3_COLLECTOR_DIR}/totalStation/tcptsinterface.cpp
     ${HTG3_COLLECTOR_DIR}/stm32_library/BoostSerial.cpp
@@ -161,7 +155,6 @@ target_link_libraries (${PROJECT_NAME}
    opencv_highgui
    glog::glog
    fmt::fmt
-   livox_lidar_sdk_static
    ${NATNET_LIBRARY}
    ${arena_LIB}
    ${save_LIB}
@@ -177,7 +170,6 @@ target_link_libraries (${PROJECT_NAME}
    ${avformat_LIB}
    ${avutil_LIB}
    ${swresample_LIB}
-   ${openvr_LIB}
    -lffi
    -pthread
    -ltiff

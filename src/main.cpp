@@ -1,3 +1,4 @@
+#define BOOST_BIND_GLOBAL_PLACEHOLDERS
 #include <memory>
 #include "ros/ros.h"
 
@@ -33,5 +34,9 @@ int main(int argc, char *argv[])
     // test to see if library link ok
     DCconfig config(config_param.c_str());
     std::string outputFolder(data_param.c_str());
-    return start_collecting(argc, argv, config, outputFolder);
+
+    DataCollector collector(config, argv[0]);
+    std::cout << "Testing" << std::endl;
+    return collector.start(outputFolder);
+    //return start_collecting(argc, argv, config, outputFolder);
 }

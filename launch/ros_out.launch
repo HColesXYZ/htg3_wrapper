@@ -2,12 +2,13 @@
     <!-- Define the argument for the file path -->
     <arg name="config_path" default="$(find htg3_wrapper)/config/test_config.json" />
     <arg name="data_path" default="$(find htg3_wrapper)/output" />
-    <arg name="ros_out" default="false" />
+    <arg name="ros_out" default="true" />
 
     <!-- Set the parameter for the node using the argument value -->
     <node name="htg3_wrapper_node" pkg="htg3_wrapper" type="htg3_wrapper" output="screen">
-        <param name="config_param" value="$(arg config_path)" />
-        <param name="data_param" value="$(arg data_path)" />
-        <param name="ros_out" value="$(arg ros_out)" />
+        <!-- Parameters for ROS -->
+        <param name="config_param" type="string" value="$(arg config_path)" />
+        <param name="data_param" type="string" value="$(arg data_path)" />
+        <param name="ros_out" type="bool" value="$(arg ros_out)" />
     </node>
 </launch>

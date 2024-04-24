@@ -2,18 +2,8 @@
 #include <memory>
 #include "ros/ros.h"
 
-#include "data_collector.h"
 
-bool getROSParam(const ros::NodeHandle& nh, const std::string& node_name, const std::string& param_name, std::string& param_value) {
-
-    std::string param_name_full = "/" + node_name + "/" + param_name;
-
-    if (!nh.getParam(param_name_full, param_value)) {
-        ROS_ERROR("Failed to get parameter '%s'", param_name.c_str());
-        return false;
-    }
-    return true;
-}
+#include "RosCollector.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,19 +14,29 @@ int main(int argc, char *argv[])
     ros::NodeHandle nh;
     std::string node_name = ros::this_node::getName();
     std::string config_param, data_param;
+    bool ros_out;
 
-    if (!getROSParam(nh, node_name, "data_param", data_param)) return 1;
-    if (!getROSParam(nh, node_name, "config_param", config_param)) return 1;
+    // Get ROS Params
+    nh.param<std::string>(node_name + "/config_param", config_param, "file_not_set");
+    nh.param<std::string>(node_name + "/data_param", data_param, "file_not_set");
+    nh.param<bool>(node_name + "/ros_out", ros_out, 0);
+    // Print ROS Params
     ROS_INFO("Wrapper Version 1.0");
     ROS_INFO("Config Param: %s", config_param.c_str());
     ROS_INFO("Data Param: %s", data_param.c_str());
-
-    // test to see if library link ok
+    ROS_INFO("ROS Out: %d", ros_out);
+    
     DCconfig config(config_param.c_str());
     std::string outputFolder(data_param.c_str());
 
-    DataCollector collector(config, argv[0]);
+    std::unique_ptr<DataCollector> collector;
+    if (ros_out) {
+        collector = std::make_unique<ROSCollector>(config);
+    } else {
+        collector = std::make_unique<DataCollector>(config);
+    }
+
+    collector->init();
     std::cout << "Testing" << std::endl;
-    return collector.start(outputFolder);
-    //return start_collecting(argc, argv, config, outputFolder);
+    return collector->start(outputFolder);
 }

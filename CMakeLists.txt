@@ -138,9 +138,19 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+# Set Wrapper Sources
+set (SOURCES
+  src/main.cpp
+  src/RosMessage.cpp
+  src/RingBuffer.cpp
+  src/RosRpiInterface.cpp
+  src/RosOptiInterface.cpp
+  src/RosCollector.cpp
+)
+
 # Add executable for the ROS wrapper
 add_executable(${PROJECT_NAME}
-  src/main.cpp
+  ${SOURCES}
   ${HGT3_SOURCES}
 )
 

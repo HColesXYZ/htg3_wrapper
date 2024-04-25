@@ -1,7 +1,7 @@
 
 ### htg3_wrapper
 
-This repo is designed to interface with the 'HT_G3_Test_rig' repo so go build that first.
+This repo is designed to interface with the 'HT_G3_Test_rig' so make sure you have that and have set ${HTG3_COLLECTOR_DIR}.
 
 #### PC Steps:
 
@@ -19,10 +19,19 @@ Then in one terminal:
 ```
 roscore
 ```
+Then in the next terminal:
+```
+rosbag record -a
+```
 And finally in another terminal:
 ```
 roslaunch htg3_wrapper main.launch 
 ```
+or
+```
+roslaunch htg3_wrapper ros_out.launch 
+```
+
 #### RPi Steps:
 In one terminal:
 ```

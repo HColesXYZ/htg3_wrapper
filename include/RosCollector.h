@@ -10,8 +10,6 @@ class ROSCollector : public DataCollector {
 public:
     ROSCollector(DCconfig& config);
 
-    //int start(std::string& outFolder) override;
-
 protected:
     void initRPI() override;
     void startCollectors() override;

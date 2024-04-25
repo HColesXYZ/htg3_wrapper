@@ -80,7 +80,7 @@ void ROSRPIInterface::PublishData()
         if (mADISBuffer->popFront(adisData.get(), 2 * size) && mADISTrigBuffer->popFront(adisTrigData.get(), size)) {
             // Process the data here
             RosMessage::adis(imuMessage, adisData.get(), adisTrigData.get());
-            RosMessage::adis_print(imuMessage);
+            //RosMessage::adis_print(imuMessage);
             adis_publisher.publish(imuMessage);
 
         } else {

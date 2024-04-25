@@ -23,9 +23,8 @@ void ROSCollector::startCollectors(){
         std::string optitrackFN = "";
         ros_opti_interface = std::make_shared<RosOptiInterface>();
         optitrackFN = ros_opti_interface->SetupOptitrack(mOutPath,config.optitrack.ip,config.ipAddress_user,config.optitrack.id);
-        ros_opti_interface->InitOptiTrack();
-	    ros_opti_interface->StartTracking();
     }
+    sleep(config.rpi.secondsBeforeStart); 
 }
 
 void ROSCollector::stopCollectors(){
@@ -46,28 +45,3 @@ void ROSCollector::stopCollectors(){
     }
     std::cout << "Threads Joined" << std::endl;
 }
-
-// int ROSCollector::start(std::string& outFolder) {
-//     done = false;
-
-//     while (!done)
-//     {
-//         if (!config.rpi.enabled) done = true;
-
-//         mOutPath = create_directory_with_timestamp(outFolder);
-//         printf("START of a logging session\n");
-
-//         waitForButtonPress();
-
-//         startCollectors();
-
-//         sendStartSignal();
-//         // Wait to finish
-//         waitForButtonPress();
-
-//         stopCollectors();
-//         //outputFPSinfo(outPath,optitrackFN,config.cameras.highRes.frameRate, config.cameras.lowRes.frameRate, 250.0, 5.0);
-//     }
-//     std::cout << "Finished" << std::endl;
-//     return 0;
-// }
